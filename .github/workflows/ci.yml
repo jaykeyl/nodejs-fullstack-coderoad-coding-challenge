@@ -7,23 +7,40 @@ on:                     # Cuándo se ejecuta
     branches: [ main, dev ]
 
 jobs:                   # Qué tareas ejecuta
-  build:
-    runs-on: ubuntu-latest  # Máquina virtual de GitHub
+    test-client:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20'
+        
+        - name: Install client dependencies
+          working-directory: ./client
+          run: npm install
+        
+        - name: Run client tests
+          working-directory: ./client
+          run: npm test
 
-    steps:               # Pasos a ejecutar
-      - name: Checkout code
-        uses: actions/checkout@v4   # Descarga el código del repo
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4 #para usar npm install instalo pirmero node jijij
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Run tests
-        run: npm test
+    test-server:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20'
+        
+        - name: Install server dependencies
+          working-directory: ./server
+          run: npm install
+        
+        - name: Run server tests
+          working-directory: ./server
+          run: npm test

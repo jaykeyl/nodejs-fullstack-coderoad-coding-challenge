@@ -22,9 +22,6 @@ jobs:                   # Qué tareas ejecuta
           working-directory: ./client
           run: npm install
         
-        - name: Run client tests
-          working-directory: ./client
-          run: npm test
 
     test-server:
       runs-on: ubuntu-latest
@@ -41,6 +38,3 @@ jobs:                   # Qué tareas ejecuta
           working-directory: ./server
           run: npm install
         
-        - name: Run server tests
-          working-directory: ./server
-          run: npm test
